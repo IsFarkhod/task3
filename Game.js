@@ -1,4 +1,4 @@
-const HMACGenerator = require('./HMACGenerator');
+const HMACGenerator = require('./HMACGeneraotr');
 const Rules = require('./Rules');
 
 class Game {
