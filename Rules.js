@@ -1,13 +1,24 @@
 class Rules {
     constructor(moves) {
         this.moves = moves;
-        this.winnewMatrix = this.generateWinnewMatrix();
+        //this.winnewMatrix = this.generateWinnewMatrix();
+        this.winningCombinations = {};
+        this.initWinningCombinations();
+    }
+
+    initWinningCombinations() {
         this.winningCombinations = {
             'Rock': ['Scissors', 'Lizard'],
-            'Papers': ['Rock', 'Spock'],
-            'Scissors': ['Paper', 'Lizzard'],
-            'Lizard': ['Spock', 'Paper'],
+            'Paper': ['Rock', 'Spock'],
+            'Scissors': ['Paper', 'Lizard'],
+            'Lizard': ['Paper', 'Spock'],
             'Spock': ['Scissors', 'Rock'],
+        };
+
+        for (const move of this.moves) {
+            if (!this.winningCombinations[move]) {
+                this.winningCombinations[move] = [];
+            }
         }
     }
 
@@ -15,7 +26,7 @@ class Rules {
         return this.winningCombinations[move] || [];
     }
 
-    generateWinnewMatrix() {
+    /*generateWinnewMatrix() {
         const size = this.moves.length;
         const matrix = Array.from({ length: size }, () => Array(size).fill('Draw'));
 
@@ -29,12 +40,20 @@ class Rules {
             }
         }
         return matrix;
-    }
+    }*/
 
-    getResult(move1, move2) {
-        const index1 = this.moves.indexOf(move1);
+    getResult(userMove, computerMove) {
+        if (userMove === computerMove) {
+            return 'Draw';
+        } else if (this.winningCombinations[userMove].includes(computerMove)) {
+            return 'Win';
+        } else {
+            return 'Lose';
+        }
+
+        /*const index1 = this.moves.indexOf(move1);
         const index2 = this.moves.indexOf(move2);
-        return this.winnewMatrix[index1][index2];
+        return this.winnewMatrix[index1][index2];*/
     }
 }
 
