@@ -1,3 +1,5 @@
+const Table = require("cli-table");
+
 class Help {
     static displayHelp(moves, rules) {
         //console.table(rules.winnerMatrix, moves);
@@ -24,18 +26,26 @@ class Help {
     }
 
     static displayWinningTable(moves, rules) {
-        const header = "  | " + moves.map(move => move.padEnd(10)).join(' | ') + " | ";
+        const table = new Table({
+            head: ['Your Move', ...moves],
+            colWidths: [15, ...Array(moves.length).fill(15)],
+        });
+
+
+        /*const header = "  | " + moves.map(move => move.padEnd(10)).join(' | ') + " | ";
         console.log(header);
-        console.log("-".repeat(header.length));
+        console.log("-".repeat(header.length));*/
 
         moves.forEach(userMove => {
-            const row = [userMove.padEnd(4) + '|'];
+            const row = [userMove];
             moves.forEach(computerMove => {
                 const result = rules.getResult(userMove, computerMove);
-                row.push(result.padEnd(10) + ' | ');
+                row.push(result);
             });
-            console.log(row.join(' '))
-        })
+            table.push(row);
+            //console.log(row.join(' '))
+        });
+        console.log(table.toString());
     }
 }
 

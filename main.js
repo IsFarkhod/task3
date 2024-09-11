@@ -36,7 +36,7 @@ process.stdin.on('data', (input) => {
         Help.displayHelp(uniqueMoves, game.rules);
     } else {
         const index = parseInt(choice) - 1;
-        if (index >= 0 && index < uniqueMoves.length) {
+        if (!isNaN(index) && index >= 0 && index < uniqueMoves.length) {
             const userMove = uniqueMoves[index];
             game.play(userMove);
         } else {
