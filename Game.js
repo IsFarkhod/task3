@@ -8,19 +8,23 @@ class Game {
         //this.key = HMACGenerator.generateKey();
     }
 
-    play(userMove) {
-        const key = HMACGenerator.generateKey();
-        const computerMove = this.moves[Math.floor(Math.random() * this.moves.length)];
-        const hmac = HMACGenerator.generateHMAC(key, computerMove);
+    getComputerMove() {
+        return this.moves[Math.floor(Math.random() * this.moves.length)];
+    }
 
-        console.log(`Computer HMAC: ${hmac}`);
-        console.log(`Your Move: ${userMove}`);
+    play(userMove) {
+        //const key = HMACGenerator.generateKey();
+        const computerMove = this.getComputerMove();
+        //const hmac = HMACGenerator.generateHMAC(key, computerMove);
+
+        // console.log(`Computer HMAC: ${hmac}`);
         console.log(`Computer Move: ${computerMove}`);
+        console.log(`Your Move: ${userMove}`);
 
         const result = this.rules.getResult(userMove, computerMove);
         console.log(result === 'Win' ? 'You Win!' : result === 'Lose' ? 'You lose!' : 'Draw!')
 
-        console.log(`HMAC key: ${key.toString('hex')}`);
+        //console.log(`HMAC key: ${key.toString('hex')}`);
     }
 }
 
